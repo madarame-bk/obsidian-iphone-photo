@@ -7,8 +7,8 @@
     "build:helper": "zsh build.sh --universal",
     "test": "node --test tests/*.test.cjs",
     "test:native": "zsh build.sh --test && node --test tests/native.test.cjs",
-    "format": "prettier --write src/*.js tests/*.cjs scripts/*.mjs *.json *.md",
-    "format:check": "prettier --check src/*.js tests/*.cjs scripts/*.mjs *.json *.md"
+    "format": "prettier --write src/*.js tests/*.cjs scripts/*.mjs *.json *.md docs/*.md",
+    "format:check": "prettier --check src/*.js tests/*.cjs scripts/*.mjs *.json *.md docs/*.md"
   },
   "devDependencies": {
     "@codemirror/commands": "6.11.1",
