@@ -2,6 +2,8 @@
 
 ## 1.2.0
 
+- Save photos in an iPhone Photos subfolder beside the note, creating it when needed.
+
 - Add helper setup instructions and a download link in plugin settings.
 - Find a separately installed helper in Applications or at a configured location.
 - Stop capture if Obsidian exits, and force a stuck helper to quit after cancellation.

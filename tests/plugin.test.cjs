@@ -24,12 +24,12 @@ test('capture follows edits without creating a placeholder undo event', async ()
   const capture = plugin.capture(editor, { file }, { simulate: 'success' });
   editor.cm.dispatch({ changes: { from: 0, insert: 'Added ' } });
   await capture;
-  assert.match(editor.cm.state.doc.toString(), /^Added Before !\[\[Topic\/iPhone /);
+  assert.match(editor.cm.state.doc.toString(), /^Added Before !\[\[Topic\/iPhone Photos\/iPhone /);
   assert.equal(attachments.length, 1);
   undo(editor.cm);
   assert.equal(editor.cm.state.doc.toString(), 'Added Before after');
   redo(editor.cm);
-  assert.ok(editor.cm.state.doc.toString().includes('![[Topic/iPhone '));
+  assert.ok(editor.cm.state.doc.toString().includes('![[Topic/iPhone Photos/iPhone '));
 });
 
 test('the capture editor takes precedence when a note is open in two panes', async () => {
@@ -47,13 +47,13 @@ test('a moved note receives its photo in the new folder', async () => {
   file.path = 'Moved/Note.md';
   file.parent.path = 'Moved';
   await capture;
-  assert.ok(attachments[0].path.startsWith('Moved/'));
+  assert.ok(attachments[0].path.startsWith('Moved/iPhone Photos/'));
 });
 
 test('a closed note accepts an unambiguous insertion', async () => {
   const { plugin, file, editor, disk } = await createPlugin({ closed: true });
   await plugin.capture(editor, { file }, { simulate: 'success' });
-  assert.match(disk(), /^Before !\[\[Topic\/iPhone /);
+  assert.match(disk(), /^Before !\[\[Topic\/iPhone Photos\/iPhone /);
 });
 
 test('an ambiguous closed-note rewrite keeps the photo without changing the note', async () => {
@@ -98,4 +98,55 @@ test('a vault save failure keeps the original photo and reports its location', a
   assert.ok((await fs.readFile(photoPath)).length > 0);
   t.after(() => fs.rm(path.dirname(photoPath), { recursive: true, force: true }));
   assert.equal(editor.cm.state.doc.toString(), 'Before after');
+});
+
+test('the first photo creates an iPhone Photos folder and later photos reuse it', async () => {
+  const { plugin, file, editor, attachments, createdFolders } = await createPlugin();
+  await plugin.capture(editor, { file }, { simulate: 'success' });
+  await plugin.capture(editor, { file }, { simulate: 'success' });
+  assert.deepEqual(createdFolders, ['Topic/iPhone Photos']);
+  assert.equal(attachments.length, 2);
+  assert.ok(attachments.every(photo => photo.path.startsWith('Topic/iPhone Photos/')));
+});
+
+test('a note at the vault root uses the root iPhone Photos folder', async () => {
+  const { plugin, file, editor, attachments, createdFolders } = await createPlugin();
+  file.path = 'Note.md';
+  file.parent.path = '/';
+  await plugin.capture(editor, { file }, { simulate: 'success' });
+  assert.deepEqual(createdFolders, ['iPhone Photos']);
+  assert.ok(attachments[0].path.startsWith('iPhone Photos/'));
+});
+
+test('an existing iPhone Photos folder is reused without a creation attempt', async () => {
+  const { plugin, file, editor, folders, createdFolders } = await createPlugin();
+  folders.set(
+    'Topic/iPhone Photos',
+    Object.assign(new obsidian.TFolder(), { path: 'Topic/iPhone Photos' })
+  );
+  await plugin.capture(editor, { file }, { simulate: 'success' });
+  assert.deepEqual(createdFolders, []);
+});
+
+test('a folder created by sync during capture is accepted', async () => {
+  const { plugin, file, editor, folders, attachments } = await createPlugin();
+  plugin.app.vault.createFolder = async folderPath => {
+    folders.set(folderPath, Object.assign(new obsidian.TFolder(), { path: folderPath }));
+    throw new Error('Folder already exists');
+  };
+  await plugin.capture(editor, { file }, { simulate: 'success' });
+  assert.equal(attachments.length, 1);
+});
+
+test('a file named iPhone Photos cannot be used as the photo folder', async t => {
+  const { plugin, file, editor, folders, attachments } = await createPlugin();
+  folders.set('Topic/iPhone Photos', { path: 'Topic/iPhone Photos' });
+  await plugin.capture(editor, { file }, { simulate: 'success' });
+  assert.equal(attachments.length, 0);
+  assert.equal(editor.cm.state.doc.toString(), 'Before after');
+  const message = notices.findLast(message => message.startsWith('Cannot save photos:'));
+  assert.ok(message.includes('is a file, not a folder'));
+  const photoPath = message.split(' Photo kept at ')[1].slice(0, -1);
+  assert.ok((await fs.readFile(photoPath)).length > 0);
+  t.after(() => fs.rm(path.dirname(photoPath), { recursive: true, force: true }));
 });

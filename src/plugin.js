@@ -1,4 +1,4 @@
-const { Plugin, Notice, MarkdownView, FileSystemAdapter } = require('obsidian');
+const { Plugin, Notice, MarkdownView, FileSystemAdapter, TFolder } = require('obsidian');
 const fs = require('node:fs/promises');
 const path = require('node:path');
 const os = require('node:os');
@@ -53,6 +53,22 @@ module.exports = class PhotoFromIPhone extends Plugin {
 
   cancelCapture() {
     if (this.pending) cancelHelper(this.pending);
+  }
+
+  async attachmentFolder(file) {
+    const parent = file.parent.path;
+    const folder = parent === '/' ? 'iPhone Photos' : `${parent}/iPhone Photos`;
+    const existing = this.app.vault.getAbstractFileByPath(folder);
+    if (existing instanceof TFolder) return folder;
+    if (existing) throw new Error(`Cannot save photos: ${folder} is a file, not a folder.`);
+
+    try {
+      await this.app.vault.createFolder(folder);
+    } catch (error) {
+      // Another plugin or sync may have created the folder while we were waiting.
+      if (!(this.app.vault.getAbstractFileByPath(folder) instanceof TFolder)) throw error;
+    }
+    return folder;
   }
 
   async insertPhoto(capture, embed) {
@@ -140,10 +156,11 @@ module.exports = class PhotoFromIPhone extends Plugin {
       const buffer = await fs.readFile(photoPath);
       if (capture.cancelled) return;
       const bytes = buffer.buffer.slice(buffer.byteOffset, buffer.byteOffset + buffer.byteLength);
-      const folder = file.parent.path === '/' ? '' : `${file.parent.path}/`;
+      const folder = await this.attachmentFolder(file);
+      if (capture.cancelled) return;
       const date = new Date().toISOString().replace(/[:.]/g, '-');
       const filename = `iPhone ${date} ${randomUUID().slice(0, 8)}.png`;
-      attachment = await this.app.vault.createBinary(folder + filename, bytes);
+      attachment = await this.app.vault.createBinary(`${folder}/${filename}`, bytes);
       if (capture.cancelled) {
         await this.app.vault.trash(attachment, true);
         return;

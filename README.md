@@ -1,6 +1,6 @@
 # Photo from iPhone
 
-Take a photo on your iPhone and insert it into the note you're editing. The image saves in the same folder as the note.
+Take a photo on your iPhone and insert it into the note you're editing. The image saves in an `iPhone Photos` subfolder beside the note. The plugin creates it on the first capture and reuses it for other notes in the same folder.
 
 Requires macOS, Obsidian 1.13.7 or later, and a separate Mac camera helper. Continuity Camera must already work in Finder.
 
@@ -27,7 +27,7 @@ The helper has no capture window or Dock icon. It runs for one capture, then qui
 - Selected text is replaced by the image embed.
 - Undo removes the whole embed; redo restores it. The PNG remains in your vault, as with other attachments.
 - You can keep typing while taking the photo. The insertion point moves with edits to the note.
-- If you move the note during capture, the photo saves in its current folder.
+- If you move the note during capture, the photo saves in the `iPhone Photos` subfolder of its current folder.
 - If you close the editor, the plugin embeds the photo only when it can recover the location safely. Otherwise it saves the photo and shows its location. Closed-note writes don't have an editor undo history.
 - Only one capture can run at a time. A request times out after three minutes.
 

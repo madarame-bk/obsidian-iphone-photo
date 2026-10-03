@@ -30,6 +30,7 @@ const obsidian = {
     }
   },
   FileSystemAdapter: class {},
+  TFolder: class {},
   Modal: class {},
   PluginSettingTab: class {},
   Setting: class {}
@@ -80,6 +81,8 @@ async function createPlugin({ closed = false, doc, from, to, save } = {}) {
   const editor = createEditor(file, doc, from, to);
   const attachments = [];
   const deleted = [];
+  const folders = new Map();
+  const createdFolders = [];
   let disk = editor.cm.state.doc.toString();
   let exists = true;
   const view = Object.assign(new obsidian.MarkdownView(), { file, editor });
@@ -96,8 +99,15 @@ async function createPlugin({ closed = false, doc, from, to, save } = {}) {
     },
     vault: {
       adapter: new obsidian.FileSystemAdapter(),
-      getAbstractFileByPath() {
-        return exists ? file : null;
+      getAbstractFileByPath(filename) {
+        if (filename === file.path) return exists ? file : null;
+        return folders.get(filename) || null;
+      },
+      async createFolder(folderPath) {
+        const folder = Object.assign(new obsidian.TFolder(), { path: folderPath });
+        folders.set(folderPath, folder);
+        createdFolders.push(folderPath);
+        return folder;
       },
       async process(note, change) {
         disk = change(disk);
@@ -123,6 +133,8 @@ async function createPlugin({ closed = false, doc, from, to, save } = {}) {
     editor,
     attachments,
     deleted,
+    folders,
+    createdFolders,
     leaves,
     disk: () => disk,
     removeNote() {
