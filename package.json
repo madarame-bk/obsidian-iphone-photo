@@ -1,0 +1,20 @@
+{
+  "name": "photo-from-iphone",
+  "version": "1.2.0",
+  "private": true,
+  "scripts": {
+    "build": "node scripts/build-plugin.mjs",
+    "build:helper": "zsh build.sh --universal",
+    "test": "node --test tests/*.test.cjs",
+    "test:native": "zsh build.sh --test && node --test tests/native.test.cjs",
+    "format": "prettier --write src/*.js tests/*.cjs scripts/*.mjs *.json *.md",
+    "format:check": "prettier --check src/*.js tests/*.cjs scripts/*.mjs *.json *.md"
+  },
+  "devDependencies": {
+    "@codemirror/commands": "6.11.1",
+    "@codemirror/state": "6.7.6",
+    "@codemirror/view": "6.43.13",
+    "esbuild": "0.28.2",
+    "prettier": "3.9.9"
+  }
+}

@@ -1,0 +1,9 @@
+node_modules/
+build/
+dist/
+ContinuityPhoto.app/
+main.js
+.DS_Store
+*.p12
+*.key
+*.mobileprovision

@@ -1,0 +1,10 @@
+{
+  "id": "iphone-photo",
+  "name": "Photo from iPhone",
+  "version": "1.2.0",
+  "minAppVersion": "1.13.7",
+  "description": "Take a photo with your iPhone, save it beside the current note, and embed it at the cursor. Requires macOS and a separate camera helper.",
+  "author": "Vratislav Vacula",
+  "authorUrl": "https://github.com/madarame-bk",
+  "isDesktopOnly": true
+}
