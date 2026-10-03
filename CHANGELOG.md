@@ -1,5 +1,10 @@
 # Changelog
 
+## 1.2.2
+
+- Keep the documentation focused on setup and compatibility.
+- No changes to photo capture or the Mac helper.
+
 ## 1.2.1
 
 - Shorten the README for the Community plugin listing.
