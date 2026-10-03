@@ -10,6 +10,8 @@ Requires macOS, Obsidian 1.13.7 or later, and a separate Mac camera helper. Cont
 2. [Download the camera helper](https://github.com/madarame-bk/obsidian-iphone-photo/releases/latest/download/ContinuityPhoto-macOS.zip). Unzip it and drag `ContinuityPhoto.app` into Applications.
 3. Use **⌘⌥P** (Command–Option–P) in an editable note to take a photo. You can change it in Settings → Hotkeys under **Photo from iPhone: Take photo from iPhone**.
 
+For manual installation, download `main.js` and `manifest.json` from the [latest release](https://github.com/madarame-bk/obsidian-iphone-photo/releases/latest), put them in `<vault>/.obsidian/plugins/iphone-photo/`, then restart Obsidian and enable the plugin in Settings → Community plugins.
+
 If you keep the helper elsewhere, set its full `.app` path in Settings → Photo from iPhone. The plugin looks in `/Applications` and `~/Applications` by default.
 
 The plugin doesn't download, install, or update the helper. Its setup window opens a direct link to the ZIP in your browser. Update the helper manually when a release asks you to.
