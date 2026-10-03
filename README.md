@@ -35,3 +35,5 @@ There are no uploads or telemetry. The plugin runs the helper from Applications 
 Temporary photos are deleted after saving or cancellation. If saving fails, the photo is kept and a notice shows where to recover it.
 
 [Report a problem](https://github.com/madarame-bk/obsidian-iphone-photo/issues) · [Manual installation](https://github.com/madarame-bk/obsidian-iphone-photo/blob/main/docs/installation.md)
+
+Released under the [MIT license](https://github.com/madarame-bk/obsidian-iphone-photo/blob/main/LICENSE).

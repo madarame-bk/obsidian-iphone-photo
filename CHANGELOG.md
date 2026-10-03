@@ -1,5 +1,11 @@
 # Changelog
 
+## 1.2.1
+
+- Shorten the README for the Community plugin listing.
+- Move detailed installation and compatibility notes into separate documentation.
+- No changes to photo capture or the Mac helper.
+
 ## 1.2.0
 
 - Set Command–Option–P as the default photo shortcut.

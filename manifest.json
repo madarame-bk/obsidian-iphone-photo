@@ -1,7 +1,7 @@
 {
   "id": "iphone-photo",
   "name": "Photo from iPhone",
-  "version": "1.2.0",
+  "version": "1.2.1",
   "minAppVersion": "1.13.7",
   "description": "Take a photo with your iPhone, save it in the note's iPhone Photos subfolder, and embed it at the cursor. Requires macOS and a separate camera helper.",
   "author": "Vratislav Vacula",
