@@ -20,6 +20,7 @@ module.exports = class PhotoFromIPhone extends Plugin {
     this.addCommand({
       id: 'take-photo',
       name: 'Take photo from iPhone',
+      hotkeys: [{ modifiers: ['Mod', 'Alt'], key: 'P' }],
       editorCheckCallback: (checking, editor, info) => {
         if (!info.file) return false;
         if (!checking) this.takePhoto(editor, info);

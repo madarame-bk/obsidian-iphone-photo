@@ -1,6 +1,7 @@
 const { Modal, PluginSettingTab, Setting } = require('obsidian');
 
-const RELEASE_URL = 'https://github.com/madarame-bk/obsidian-iphone-photo/releases/latest';
+const HELPER_DOWNLOAD_URL =
+  'https://github.com/madarame-bk/obsidian-iphone-photo/releases/latest/download/ContinuityPhoto-macOS.zip';
 
 class HelperSetup extends Modal {
   constructor(app, plugin) {
@@ -21,7 +22,7 @@ class HelperSetup extends Modal {
         button
           .setButtonText('Download helper')
           .setCta()
-          .onClick(() => window.open(RELEASE_URL))
+          .onClick(() => window.open(HELPER_DOWNLOAD_URL))
       )
       .addButton(button =>
         button.setButtonText('Check installation').onClick(async () => {

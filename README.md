@@ -7,12 +7,12 @@ Requires macOS, Obsidian 1.13.7 or later, and a separate Mac camera helper. Cont
 ## Setup
 
 1. Install and enable **Photo from iPhone** in Obsidian.
-2. Download `ContinuityPhoto-macOS.zip` from the [releases page](https://github.com/madarame-bk/obsidian-iphone-photo/releases). Unzip it and drag `ContinuityPhoto.app` into Applications.
-3. In Settings → Hotkeys, assign a shortcut to **Photo from iPhone: Take photo from iPhone**.
+2. [Download the camera helper](https://github.com/madarame-bk/obsidian-iphone-photo/releases/latest/download/ContinuityPhoto-macOS.zip). Unzip it and drag `ContinuityPhoto.app` into Applications.
+3. Use **⌘⌥P** (Command–Option–P) in an editable note to take a photo. You can change it in Settings → Hotkeys under **Photo from iPhone: Take photo from iPhone**.
 
 If you keep the helper elsewhere, set its full `.app` path in Settings → Photo from iPhone. The plugin looks in `/Applications` and `~/Applications` by default.
 
-The plugin doesn't download, install, or update the helper. Its setup window links to the releases page. Update the helper manually when a release asks you to.
+The plugin doesn't download, install, or update the helper. Its setup window opens a direct link to the ZIP in your browser. Update the helper manually when a release asks you to.
 
 ## Taking a photo
 
@@ -31,7 +31,7 @@ The helper has no capture window or Dock icon. It runs for one capture, then qui
 - If you close the editor, the plugin embeds the photo only when it can recover the location safely. Otherwise it saves the photo and shows its location. Closed-note writes don't have an editor undo history.
 - Only one capture can run at a time. A request times out after three minutes.
 
-No shortcut is assigned automatically. If you choose ⌘P, reassign Obsidian's command-palette shortcut to avoid a conflict.
+The default photo shortcut is **⌘⌥P**. Obsidian's command palette keeps **⌘P**.
 
 ## Compatibility
 
@@ -43,7 +43,7 @@ If several devices are available, the helper uses the first one reported by macO
 
 ## Privacy
 
-The plugin sends no notes or photos to a server and has no telemetry. It makes no network requests. The download button opens GitHub in your browser; macOS manages the local Continuity connection to your iPhone.
+The plugin sends no notes or photos to a server and has no telemetry. It makes no network requests. The download button opens the helper ZIP hosted on GitHub in your browser; macOS manages the local Continuity connection to your iPhone.
 
 Outside the vault, the plugin checks the configured helper location or the Applications folders and runs the helper executable. Captures are written into a private temporary folder before being copied to the vault. The helper uses a private pasteboard, leaving your clipboard unchanged.
 

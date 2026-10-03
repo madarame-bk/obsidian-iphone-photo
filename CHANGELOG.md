@@ -2,6 +2,8 @@
 
 ## 1.2.0
 
+- Set Command–Option–P as the default photo shortcut.
+- Link directly to the helper ZIP from the setup window.
 - Save photos in an iPhone Photos subfolder beside the note, creating it when needed.
 
 - Add helper setup instructions and a download link in plugin settings.
