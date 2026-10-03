@@ -1,6 +1,6 @@
 # Photo from iPhone
 
-Take a photo on your iPhone and insert it at the cursor in your Obsidian note, for example when taking notes during a lecture. Press **⌘⌥P**, take the photo, and tap **Use Photo**. You can also choose **Take photo from iPhone** from the editor's right-click menu or the command palette.
+Take a photo on your iPhone and insert it at the cursor in your Obsidian note, for example when taking notes during a lecture. Press **⌘J**, take the photo, and tap **Use Photo**. You can also choose **Take photo from iPhone** from the editor's right-click menu or the command palette.
 
 For Mac only. Requires Obsidian 1.13.7 or later and Continuity Camera working in Finder. No iPhone app is needed.
 
@@ -10,7 +10,7 @@ After enabling the plugin:
 
 1. [Download the camera helper](https://github.com/madarame-bk/obsidian-iphone-photo/releases/latest/download/ContinuityPhoto-macOS.zip).
 2. Unzip it and drag **ContinuityPhoto.app** into **Applications**.
-3. Open a note, place your cursor, and press **⌘⌥P** (Command–Option–P).
+3. Open a note, place your cursor, and press **⌘J** (Command–J).
 
 The helper is signed with Developer ID and notarized by Apple. It runs while you're taking a photo, then quits, without a window or Dock icon. Install it once; the plugin finds it automatically.
 

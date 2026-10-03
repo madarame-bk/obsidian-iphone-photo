@@ -1,5 +1,9 @@
 # Changelog
 
+## 1.2.3
+
+- Use Command–J as the default shortcut for taking a photo from iPhone.
+
 ## 1.2.2
 
 - Keep the documentation focused on setup and compatibility.
